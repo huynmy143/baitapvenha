@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập về nhà - Tuần 3</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #164e8a;
+            --primary-light: #eaf2ff;
+            --background: #f4f8ff;
+            --text: #26364b;
+            --muted: #718096;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Be Vietnam Pro", sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ===== BACKGROUND ===== */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #164e8a, #60a5fa);
+            z-index: -1;
+            border-radius: 0 0 45px 45px;
+        }
+
+        #root {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 55px 18px 20px;
+        }
+
+        /* ===== CARD CHUNG ===== */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 30px rgba(30, 64, 120, 0.08);
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        /* ===== PROFILE ===== */
+        .profile {
+            text-align: center;
+            padding: 38px 28px 32px;
+        }
+
+        .profile-img {
+            width: 145px;
+            height: 145px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #e4efff;
+            padding: 4px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(37, 99, 235, 0.15);
+        }
+
+        .profile h1 {
+            margin: 17px 0 8px;
+            color: var(--primary-dark);
+            font-size: 27px;
+            font-weight: 800;
+        }
+
+        .profile-intro {
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .profile-info {
+            margin: 9px 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .profile-info i {
+            color: var(--primary);
+            width: 22px;
+            margin-right: 5px;
+        }
+
+        /* ===== SOCIAL ===== */
+        .social {
+            list-style: none;
+            padding: 0;
+            margin: 24px 0 0;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 14px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 19px;
+            text-decoration: none;
+            transition: all .25s ease;
+        }
+
+        .social a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(37, 99, 235, .25);
+        }
+
+        /* ===== EXERCISES ===== */
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .heading-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 43px;
+            height: 43px;
+            border-radius: 13px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 19px;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            color: var(--primary-dark);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .section-heading p {
+            margin: 2px 0 0;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .exercises {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .exercises a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 17px;
+            border: 1px solid #e8eff9;
+            border-radius: 14px;
+            background: #fbfdff;
+            color: var(--text);
+            text-decoration: none;
+            transition: all .25s ease;
+        }
+
+        .exercises a:hover {
+            background: #f0f6ff;
+            border-color: #a8caff;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, .08);
+        }
+
+        .exercise-icon {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .exercise-content {
+            flex: 1;
+        }
+
+        .exercise-content strong {
+            display: block;
+            font-size: 14px;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        .exercise-content span {
+            display: block;
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .exercise-arrow {
+            color: #9bb4d6;
+            font-size: 14px;
+            transition: transform .25s;
+        }
+
+        .exercises a:hover .exercise-arrow {
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            color: #8295ae;
+            font-size: 12px;
+            padding: 5px 0 20px;
+        }
+
+        footer i {
+            color: #3b82f6;
+            margin-right: 4px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            #root {
+                padding: 35px 14px 15px;
+            }
+
+            .card {
+                padding: 23px 18px;
+                border-radius: 17px;
+            }
+
+            .profile h1 {
+                font-size: 23px;
+            }
+
+            .profile-info {
+                font-size: 12px;
+            }
+
+            .section-heading h2 {
+                font-size: 18px;
+            }
+
+            .exercise-content span {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+
+        <!-- PROFILE -->
+        <section class="card profile">
+
+            <img src="imgs/QVN02174.jpg"
+                 alt="Ảnh cá nhân"
+                 class="profile-img">
+
+            <h1>Trần Nữ Huyền My</h1>
+
+            <div class="profile-intro">
+                E-Commerce Student
+            </div>
+
+            <p class="profile-info">
+                <i class="fas fa-university"></i>
+                Thương mại điện tử, Khoa CNTTKD, UEH
+            </p>
+
+            <p class="profile-info">
+                <i class="fas fa-id-card"></i>
+                MSSV: 31241027201 &nbsp;|&nbsp; Lớp: EE0001
+            </p>
+
+            <p class="profile-info">
+                <i class="fas fa-map-marker-alt"></i>
+                TP. Hồ Chí Minh
+            </p>
+
+            <ul class="social">
+                <li>
+                    <a href="https://github.com/huynmy143"
+                       title="GitHub" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="mailto:mytran.31241027201@st.ueh.edu.vn"
+                       title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- EXERCISES -->
+        <section class="card">
+
+            <div class="section-heading">
+                <div class="heading-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+
+                <div>
+                    <h2>Các bài tập đã làm</h2>
+                    <p>Tổng hợp bài tập thực hành phát triển ứng dụng TMĐT</p>
+                </div>
+            </div>
+
+            <ul class="exercises">
+
+                <li>
+                    <a href="baitap1.html">
+                        <div class="exercise-icon">
+                            <i class="fas fa-font"></i>
+                        </div>
+                        <div class="exercise-content">
+                            <strong>Bài 1 - Định dạng văn bản</strong>
+                            <span>UEH, CNTTKD, text-shadow</span>
+                        </div>
+                        <i class="fas fa-chevron-right exercise-arrow"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="baitap2.html">
+                        <div class="exercise-icon">
+                            <i class="fas fa-icons"></i>
+                        </div>
+                        <div class="exercise-content">
+                            <strong>Bài 2 - Menu ngang</strong>
+                            <span>Menu ngang và Font Awesome</span>
+                        </div>
+                        <i class="fas fa-chevron-right exercise-arrow"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="baitap3.html">
+                        <div class="exercise-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div class="exercise-content">
+                            <strong>Bài 3 - Shared Hosting</strong>
+                            <span>Thiết kế Landing Page</span>
+                        </div>
+                        <i class="fas fa-chevron-right exercise-arrow"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="baitap4.html">
+                        <div class="exercise-icon">
+                            <i class="fas fa-th"></i>
+                        </div>
+                        <div class="exercise-content">
+                            <strong>Bài 4 - My Portfolio</strong>
+                            <span>Thiết kế Gallery sử dụng Flexbox</span>
+                        </div>
+                        <i class="fas fa-chevron-right exercise-arrow"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="baitap5.html">
+                        <div class="exercise-icon">
+                            <i class="fas fa-columns"></i>
+                        </div>
+                        <div class="exercise-content">
+                            <strong>Bài 5 - Bố cục trang web</strong>
+                            <span>Header / Nav / Main / Footer (Float)</span>
+                        </div>
+                        <i class="fas fa-chevron-right exercise-arrow"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="css2/css2.html">
+                        <div class="exercise-icon">
+                            <i class="fas fa-mask"></i>
+                        </div>
+                        <div class="exercise-content">
+                            <strong>Bài CSS2 - The Bat Family</strong>
+                            <span>Danh sách nhân vật và hiệu ứng Hover</span>
+                        </div>
+                        <i class="fas fa-chevron-right exercise-arrow"></i>
+                    </a>
+                </li>
+
+            </ul>
+        </section>
+
+        <footer>
+            <i class="far fa-copyright"></i>
+            2026 - Trần Nữ Huyền My - Bài tập Phát triển ứng dụng TMĐT
+        </footer>
+
+    </div>
+</body>
+</html>
