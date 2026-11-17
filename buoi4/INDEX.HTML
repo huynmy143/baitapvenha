@@ -4,37 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfolio thực hành JavaScript của Trần Nữ Huyền My">
-
     <title>JavaScript Labs | Trần Nữ Huyền My</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    >
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <header class="site-header">
         <div class="container header-content">
-            <a
-                class="brand"
-                href="index.html"
-                aria-label="Trang chủ JavaScript Labs"
-            >
+            <a class="brand" href="index.html" aria-label="Trang chủ JavaScript Labs">
                 <span class="brand-icon">
-                    <i class="fab fa-js-square"></i>
+                    <i class="fab fa-js-square" aria-hidden="true"></i>
                 </span>
-
                 <span>JavaScript Labs</span>
             </a>
 
@@ -48,7 +33,7 @@
     </header>
 
     <main class="container">
-        <!-- THÔNG TIN SINH VIÊN -->
+        <!-- Thông tin sinh viên -->
         <section class="hero card" aria-labelledby="student-name">
             <div class="profile-photo-wrap">
                 <img
@@ -60,7 +45,6 @@
 
             <div class="hero-content">
                 <p class="eyebrow">Portfolio thực hành JavaScript</p>
-
                 <h1 id="student-name">Trần Nữ Huyền My</h1>
 
                 <p class="student-major">
@@ -68,28 +52,14 @@
                 </p>
 
                 <div class="student-details">
-                    <span>
-                        <i class="fas fa-id-card"></i>
-                        MSSV: 31241027201
-                    </span>
-
-                    <span>
-                        <i class="fas fa-users"></i>
-                        Lớp học phần: EE0001
-                    </span>
-
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        TP. Hồ Chí Minh
-                    </span>
+                    <span><i class="fas fa-id-card" aria-hidden="true"></i> MSSV: 31241027201</span>
+                    <span><i class="fas fa-users" aria-hidden="true"></i> Lớp học phần: EE0001</span>
+                    <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> TP. Hồ Chí Minh</span>
                 </div>
 
                 <div class="hero-actions">
-                    <a
-                        class="button button-primary"
-                        href="#danh-sach-lab"
-                    >
-                        <i class="fas fa-play"></i>
+                    <a class="button button-primary" href="#danh-sach-lab">
+                        <i class="fas fa-play" aria-hidden="true"></i>
                         Xem các bài Lab
                     </a>
 
@@ -99,50 +69,41 @@
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <i class="fab fa-github"></i>
+                        <i class="fab fa-github" aria-hidden="true"></i>
                         GitHub cá nhân
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- GIỚI THIỆU BÀI THỰC HÀNH -->
-        <section id="gioi-thieu" class="card section-card">
+        <!-- Giới thiệu bài thực hành -->
+        <section id="gioi-thieu" class="card section-card" aria-labelledby="intro-heading">
             <div class="section-title">
                 <span class="section-icon">
-                    <i class="fas fa-bullseye"></i>
+                    <i class="fas fa-bullseye" aria-hidden="true"></i>
                 </span>
-
                 <div>
                     <p class="eyebrow">Mục tiêu học tập</p>
-                    <h2>Giới thiệu bài thực hành</h2>
+                    <h2 id="intro-heading">Giới thiệu bài thực hành</h2>
                 </div>
             </div>
 
             <p>
-                Bộ bài thực hành gồm ba phần, đi từ nền tảng ngôn ngữ
-                JavaScript đến thao tác DOM, xử lý sự kiện và sử dụng
-                jQuery. Qua các bài Lab, em rèn luyện khả năng xây dựng
-                những thành phần web có tương tác, phản hồi thao tác của
-                người dùng và cập nhật nội dung mà không cần thiết kế lại
-                toàn bộ trang. Đây là nền tảng quan trọng để phát triển
-                các chức năng của website thương mại điện tử như kiểm tra
-                biểu mẫu, quản lý giỏ hàng, hiển thị sản phẩm và tạo trải
-                nghiệm mua sắm trực quan hơn.
+                Ba bài thực hành lần lượt giới thiệu nền tảng JavaScript, thao tác DOM
+                và xử lý sự kiện, sau đó vận dụng jQuery để tạo hiệu ứng và tải dữ liệu.
+                Qua các bài Lab, em học cách để trang web phản hồi thao tác của người dùng
+                và cập nhật nội dung ngay trên giao diện. Những kỹ thuật này có thể áp dụng
+                vào website thương mại điện tử, chẳng hạn như kiểm tra biểu mẫu đăng ký,
+                cập nhật giỏ hàng và hiển thị danh sách sản phẩm.
             </p>
         </section>
 
-        <!-- DANH SÁCH BÀI LAB -->
-        <section
-            id="danh-sach-lab"
-            class="section-block"
-            aria-labelledby="labs-heading"
-        >
+        <!-- Danh sách Lab -->
+        <section id="danh-sach-lab" class="section-block" aria-labelledby="labs-heading">
             <div class="section-title section-title-outside">
                 <span class="section-icon">
-                    <i class="fas fa-laptop-code"></i>
+                    <i class="fas fa-laptop-code" aria-hidden="true"></i>
                 </span>
-
                 <div>
                     <p class="eyebrow">Mã nguồn và kết quả</p>
                     <h2 id="labs-heading">Danh sách bài Lab</h2>
@@ -150,194 +111,141 @@
             </div>
 
             <div class="lab-grid">
-                <!-- LAB 08 -->
                 <article class="lab-card">
-                    <div class="lab-number">08</div>
-
+                    <div class="lab-number" aria-hidden="true">08</div>
                     <div class="lab-icon">
-                        <i class="fas fa-code"></i>
+                        <i class="fas fa-code" aria-hidden="true"></i>
                     </div>
-
                     <p class="lab-type">JavaScript 1</p>
-
                     <h3>Language Foundations</h3>
-
                     <p>
                         Thực hành cú pháp, biến, kiểu dữ liệu, hàm,
                         String, Date, Array và Object.
                     </p>
-
-                    <a class="lab-link" href="Lab08/">
+                    <a class="lab-link" href="JavaScript-Labs/Lab08/index.html">
                         Truy cập Lab 08
-                        <i class="fas fa-arrow-right"></i>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
                     </a>
                 </article>
 
-                <!-- LAB 09 -->
                 <article class="lab-card featured">
-                    <div class="lab-number">09</div>
-
+                    <div class="lab-number" aria-hidden="true">09</div>
                     <div class="lab-icon">
-                        <i class="fas fa-project-diagram"></i>
+                        <i class="fas fa-project-diagram" aria-hidden="true"></i>
                     </div>
-
                     <p class="lab-type">JavaScript 2</p>
-
                     <h3>DOM and Events</h3>
-
                     <p>
                         Truy xuất phần tử, thay đổi nội dung, xử lý sự kiện
-                        và kiểm tra dữ liệu Form.
+                        và kiểm tra dữ liệu biểu mẫu.
                     </p>
-
-                    <a class="lab-link" href="Lab09/">
+                    <a class="lab-link" href="JavaScript-Labs/Lab09/index.html">
                         Truy cập Lab 09
-                        <i class="fas fa-arrow-right"></i>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
                     </a>
                 </article>
 
-                <!-- LAB 10 -->
                 <article class="lab-card">
-                    <div class="lab-number">10</div>
-
+                    <div class="lab-number" aria-hidden="true">10</div>
                     <div class="lab-icon">
-                        <i class="fas fa-magic"></i>
+                        <i class="fas fa-magic" aria-hidden="true"></i>
                     </div>
-
                     <p class="lab-type">JavaScript 3</p>
-
                     <h3>jQuery</h3>
-
                     <p>
-                        Thực hành selector, event, DOM, animation,
-                        GET Request và xử lý jqXHR.
+                        Thực hành bộ chọn, sự kiện, thao tác DOM, tạo hiệu ứng,
+                        gửi yêu cầu GET và xử lý phản hồi bằng jqXHR.
                     </p>
-
-                    <a class="lab-link" href="Lab10/">
+                    <a class="lab-link" href="JavaScript-Labs/Lab10/index.html">
                         Truy cập Lab 10
-                        <i class="fas fa-arrow-right"></i>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
                     </a>
                 </article>
             </div>
         </section>
 
-        <!-- KIẾN THỨC VÀ KỸ NĂNG -->
-        <section
-            id="kien-thuc"
-            class="card section-card"
-            aria-labelledby="knowledge-heading"
-        >
+        <!-- Kiến thức và kỹ năng -->
+        <section id="kien-thuc" class="card section-card" aria-labelledby="knowledge-heading">
             <div class="section-title">
                 <span class="section-icon">
-                    <i class="fas fa-lightbulb"></i>
+                    <i class="fas fa-lightbulb" aria-hidden="true"></i>
                 </span>
-
                 <div>
                     <p class="eyebrow">Kết quả học tập</p>
-
-                    <h2 id="knowledge-heading">
-                        Kiến thức và kỹ năng đã học
-                    </h2>
+                    <h2 id="knowledge-heading">Kiến thức và kỹ năng đã học</h2>
                 </div>
             </div>
 
             <div class="knowledge-list">
-                <!-- KIẾN THỨC LAB 08 -->
                 <article class="knowledge-item">
                     <span class="knowledge-label">Lab 08</span>
-
                     <div>
-                        <h3>Xây dựng nền tảng JavaScript</h3>
-
+                        <h3>Nền tảng JavaScript</h3>
                         <p>
-                            em hiểu cách nhúng JavaScript vào HTML, khai báo
-                            biến, sử dụng kiểu dữ liệu, câu lệnh điều kiện,
-                            vòng lặp và hàm. em cũng thực hành xử lý chuỗi,
-                            ngày tháng, mảng, đối tượng và sử dụng Browser
-                            Console để kiểm tra, gỡ lỗi chương trình.
+                            Em thực hành nhúng JavaScript vào HTML và liên kết tệp
+                            JavaScript riêng. Em dùng biến, điều kiện, vòng lặp và hàm
+                            để xử lý chuỗi, ngày tháng, mảng và đối tượng. Browser Console
+                            giúp em kiểm tra kết quả và xác định vị trí lỗi.
                         </p>
                     </div>
                 </article>
 
-                <!-- KIẾN THỨC LAB 09 -->
                 <article class="knowledge-item">
                     <span class="knowledge-label">Lab 09</span>
-
                     <div>
-                        <h3>Điều khiển giao diện bằng DOM và Events</h3>
-
+                        <h3>Thao tác DOM và xử lý sự kiện</h3>
                         <p>
-                            em có thể lựa chọn phần tử HTML, đọc hoặc thay đổi
-                            nội dung, thuộc tính và CSS; đồng thời tạo, thêm
-                            hoặc xóa phần tử. em biết xử lý click, mouseover,
-                            mouseout và kiểm tra dữ liệu biểu mẫu trước khi
-                            người dùng gửi thông tin.
+                            Em học cách chọn phần tử HTML, thay đổi nội dung, thuộc tính
+                            và kiểu hiển thị, cũng như thêm hoặc xóa phần tử. Em thực hành
+                            xử lý thao tác nhấp chuột, rê chuột và kiểm tra dữ liệu trước
+                            khi gửi biểu mẫu.
                         </p>
                     </div>
                 </article>
 
-                <!-- KIẾN THỨC LAB 10 -->
                 <article class="knowledge-item">
                     <span class="knowledge-label">Lab 10</span>
-
                     <div>
-                        <h3>Tăng tốc thao tác với jQuery</h3>
-
+                        <h3>Thao tác giao diện với jQuery</h3>
                         <p>
-                            em biết cài đặt jQuery, sử dụng selector và event
-                            handler để thao tác DOM ngắn gọn hơn. em còn thực
-                            hành hiệu ứng fade, slide, animation, gửi GET
-                            Request và xử lý các trạng thái thành công hoặc
-                            thất bại thông qua jqXHR.
+                            Em dùng bộ chọn và trình xử lý sự kiện của jQuery để thay đổi
+                            giao diện, chèn phần tử và tạo các hiệu ứng như fade và slide.
+                            Em cũng thực hành gửi yêu cầu GET và dùng jqXHR để xử lý kết quả
+                            hoặc phản hồi lỗi.
                         </p>
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- TỰ ĐÁNH GIÁ -->
-        <section
-            id="tu-danh-gia"
-            class="reflection card"
-            aria-labelledby="reflection-heading"
-        >
+        <!-- Tự đánh giá -->
+        <section id="tu-danh-gia" class="reflection card" aria-labelledby="reflection-heading">
             <div class="reflection-icon">
-                <i class="fas fa-quote-left"></i>
+                <i class="fas fa-quote-left" aria-hidden="true"></i>
             </div>
 
             <div>
                 <p class="eyebrow">Tổng kết cá nhân</p>
-
-                <h2 id="reflection-heading">
-                    Tự đánh giá sau khi hoàn thành
-                </h2>
-
+                <h2 id="reflection-heading">Tự đánh giá sau khi hoàn thành</h2>
                 <p>
-                    Sau ba bài Lab, em hiểu rõ hơn cách JavaScript biến một
-                    trang HTML tĩnh thành giao diện có thể tương tác với người
-                    dùng. Lab 8 thì hỗ trợ em hiểu các thao tác cơ bản trên java
-                    như kiểu khai báo biến, hiểu được các kiểu dữ liệu, đồng thời 
-                    cũng biết sơ về cách kiểm tra lỗi. Về Lab 9 thì giúp em hiểu 
-                    phương thức lựa chọn phần tử hay thao tác với phần tử, ngoài ra
-                    thì có giúp em biết cách xử lí đối với các thao tác như click, 
-                    rê chuột,.... Về Lab 10, phần này thì code thiên về các hiệu ứng
-                    phần lớn em chỉ copy lại nội dung hướng dẫn và xem các hiệu ứng 
-                    chuyển động như thế nào.
-
-                </p>
+                    Sau ba bài Lab, em hiểu cách JavaScript giúp trang web phản hồi thao tác
+                    của người dùng. Lab 08 giúp em nắm cách khai báo biến, phân biệt kiểu
+                    dữ liệu và tìm lỗi trong Console. Lab 09 hữu ích với em vì em có thể áp
+                    dụng cách chọn phần tử và xử lý sự kiện để kiểm tra biểu mẫu đăng ký
+                    hoặc cập nhật số lượng trong giỏ hàng. Lab 10 là phần em cần luyện thêm.
+                    Khi làm các bài hiệu ứng, em chủ yếu chạy mã mẫu theo hướng dẫn để
+                    quan sát chuyển động. 
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
         <div class="container footer-content">
-            <p>
-                <i class="far fa-copyright"></i>
-                2026 Trần Nữ Huyền My
-            </p>
-
+            <p><i class="far fa-copyright" aria-hidden="true"></i> 2026 Trần Nữ Huyền My</p>
             <p>Phát triển ứng dụng Thương mại điện tử</p>
         </div>
     </footer>
 </body>
 </html>
+
+
