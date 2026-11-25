@@ -1,8 +1,19 @@
+
 // =====================================================
-// 1. LẤY CÁC PHẦN TỬ HTML
-// NOTE: Các ID ở đây phải trùng với ID trong index.html.
+// MYDAY - QUẢN LÝ CÔNG VIỆC HÔM NAY
+// File: frontend/script.js
+// Kết nối Backend API và Database SQLite
 // =====================================================
 
+
+// 1. CẤU HÌNH API
+const API_URL = "/api/tasks";
+
+let tasks = [];
+let editingTaskId = null;
+
+
+// 2. LẤY CÁC PHẦN TỬ HTML
 const elements = {
     addTaskBtn: document.getElementById("add-task-btn"),
     taskFormContainer: document.getElementById("task-form-container"),
@@ -34,124 +45,113 @@ const elements = {
 };
 
 
-// NOTE: Kiểm tra các phần tử HTML quan trọng.
-// Nếu thiếu ID, Console sẽ giúp mình tìm lỗi.
-const requiredElements = [
-    "addTaskBtn",
-    "taskFormContainer",
-    "taskForm",
-    "taskList",
-    "searchInput",
-    "statusFilter",
-    "priorityFilter",
-    "titleInput",
-    "descriptionInput",
-    "dateInput",
-    "priorityInput",
-    "startTimeInput",
-    "endTimeInput",
-    "statusInput"
-];
+// 3. HÀM GỌI BACKEND API
+async function callAPI(url, method = "GET", body = null) {
+    const options = {
+        method,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
 
-const missingElements = requiredElements.filter(function (key) {
-    return !elements[key];
-});
+    if (body !== null) {
+        options.body = JSON.stringify(body);
+    }
 
-if (missingElements.length > 0) {
-    console.error(
-        "MyDay: Không tìm thấy phần tử HTML:",
-        missingElements.join(", ")
-    );
+    const response = await fetch(url, options);
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok || result.success === false) {
+        throw new Error(
+            result.message || "Không thể kết nối với máy chủ."
+        );
+    }
+
+    return result;
 }
 
 
-// =====================================================
-// 2. KHAI BÁO DỮ LIỆU
-// NOTE: localStorage giúp công việc không bị mất khi
-// tải lại trang. Sau này có thể thay bằng SQLite.
-// =====================================================
+// 4. LẤY NGÀY HÔM NAY
+function getTodayString() {
+    const today = new Date();
 
-const STORAGE_KEY = "myday_tasks";
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
 
-let tasks = loadTasks();
-let editingTaskId = null;
+    return `${year}-${month}-${day}`;
+}
 
 
-// Đọc dữ liệu công việc đã lưu trong trình duyệt.
-function loadTasks() {
+// 5. TẢI DỮ LIỆU TỪ DATABASE
+async function loadTasks() {
     try {
-        const savedTasks = localStorage.getItem(STORAGE_KEY);
-        const parsedTasks = savedTasks ? JSON.parse(savedTasks) : [];
+        const result = await callAPI(API_URL);
 
-        return Array.isArray(parsedTasks) ? parsedTasks : [];
+        // Dữ liệu được lấy từ SQLite thông qua Backend.
+        tasks = Array.isArray(result.data) ? result.data : [];
+
+        renderTasks();
+        updateStatistics();
+
     } catch (error) {
-        console.error("Không thể đọc dữ liệu công việc:", error);
-        return [];
+        console.error("Lỗi tải công việc:", error);
+
+        elements.taskList.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i data-lucide="cloud-off"></i>
+                </div>
+                <h3>Không thể tải công việc</h3>
+                <p>${escapeHTML(error.message)}</p>
+                <button type="button" id="retry-load-btn">
+                    Thử tải lại
+                </button>
+            </div>
+        `;
+
+        refreshIcons();
     }
 }
 
 
-// Lưu danh sách công việc vào localStorage.
-function saveTasks() {
-    try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-    } catch (error) {
-        console.error("Không thể lưu dữ liệu công việc:", error);
-        alert("Không thể lưu dữ liệu. Vui lòng kiểm tra bộ nhớ trình duyệt.");
-    }
-}
-
-
-// =====================================================
-// 3. CÁC HÀM HỖ TRỢ
-// NOTE: Gom các thao tác dùng nhiều lần để tránh lặp code.
-// =====================================================
-
-
-// Tạo ID riêng cho mỗi công việc.
-function createTaskId() {
-    if (window.crypto && typeof window.crypto.randomUUID === "function") {
-        return window.crypto.randomUUID();
-    }
-
-    return String(Date.now());
-}
-
-
-// Chuyển ngày từ YYYY-MM-DD sang DD/MM/YYYY.
-function formatDate(dateString) {
-    if (!dateString) return "Chưa có ngày";
-
-    const parts = dateString.split("-");
-    if (parts.length !== 3) return dateString;
-
-    const [year, month, day] = parts;
-    return `${day}/${month}/${year}`;
-}
-
-
-// Khởi tạo icon Lucide.
+// 6. CÁC HÀM HỖ TRỢ
 function refreshIcons() {
-    if (window.lucide && typeof window.lucide.createIcons === "function") {
+    if (window.lucide) {
         window.lucide.createIcons();
     }
 }
 
 
-// Hiển thị ngày hiện tại trên giao diện.
-function updateCurrentDate() {
-    if (!elements.currentDate) return;
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => {
+        const entities = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        };
 
-    elements.currentDate.textContent = new Date().toLocaleDateString("vi-VN", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
+        return entities[char];
     });
 }
 
 
-// Chuyển mức độ ưu tiên sang tiếng Việt.
+function formatDate(dateString) {
+    if (!dateString) return "Chưa có ngày";
+
+    const parts = String(dateString).slice(0, 10).split("-");
+
+    if (parts.length !== 3) return dateString;
+
+    const [year, month, day] = parts;
+
+    return `${day}/${month}/${year}`;
+}
+
+
 function getPriorityText(priority) {
     const labels = {
         high: "Cao",
@@ -163,7 +163,6 @@ function getPriorityText(priority) {
 }
 
 
-// Chuyển trạng thái công việc sang tiếng Việt.
 function getStatusText(status) {
     return status === "completed"
         ? "Đã hoàn thành"
@@ -171,24 +170,31 @@ function getStatusText(status) {
 }
 
 
-// =====================================================
-// 4. MỞ VÀ ĐÓNG BIỂU MẪU
-// =====================================================
+function updateCurrentDate() {
+    if (!elements.currentDate) return;
+
+    elements.currentDate.textContent =
+        new Date().toLocaleDateString("vi-VN", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        });
+}
 
 
-// Mở biểu mẫu để thêm công việc mới.
+// 7. MỞ VÀ ĐÓNG BIỂU MẪU
 function openTaskForm() {
     editingTaskId = null;
+
     elements.taskForm.reset();
 
-    if (elements.formHeading) {
-        elements.formHeading.textContent = "Thêm công việc mới";
-    }
+    elements.dateInput.value = getTodayString();
 
-    if (elements.saveButton) {
-        elements.saveButton.innerHTML =
-            '<i data-lucide="plus"></i> Lưu công việc';
-    }
+    elements.formHeading.textContent = "Thêm công việc mới";
+
+    elements.saveButton.innerHTML =
+        '<i data-lucide="plus"></i> Lưu công việc';
 
     elements.taskFormContainer.hidden = false;
 
@@ -197,21 +203,15 @@ function openTaskForm() {
 }
 
 
-// Đóng biểu mẫu và xóa dữ liệu đang nhập.
 function closeTaskForm() {
     elements.taskFormContainer.hidden = true;
     elements.taskForm.reset();
+
     editingTaskId = null;
 }
 
 
-// =====================================================
-// 5. THÊM VÀ CẬP NHẬT CÔNG VIỆC
-// NOTE: Dùng chung một biểu mẫu cho cả hai chức năng.
-// =====================================================
-
-
-// Lấy dữ liệu từ các ô nhập liệu.
+// 8. LẤY DỮ LIỆU TỪ BIỂU MẪU
 function getFormData() {
     return {
         title: elements.titleInput.value.trim(),
@@ -225,17 +225,16 @@ function getFormData() {
 }
 
 
-// Kiểm tra dữ liệu trước khi lưu.
-function validateTask(taskData) {
-    if (!taskData.title || !taskData.date) {
+function validateTask(data) {
+    if (!data.title || !data.date) {
         alert("Vui lòng nhập tên công việc và ngày thực hiện!");
         return false;
     }
 
     if (
-        taskData.startTime &&
-        taskData.endTime &&
-        taskData.endTime <= taskData.startTime
+        data.startTime &&
+        data.endTime &&
+        data.endTime <= data.startTime
     ) {
         alert("Giờ kết thúc phải sau giờ bắt đầu!");
         return false;
@@ -245,82 +244,79 @@ function validateTask(taskData) {
 }
 
 
-// Xử lý khi người dùng nhấn nút lưu.
-function handleTaskSubmit(event) {
+// 9. THÊM VÀ CẬP NHẬT CÔNG VIỆC
+async function handleTaskSubmit(event) {
     event.preventDefault();
 
-    const taskData = getFormData();
+    const data = getFormData();
 
-    if (!validateTask(taskData)) return;
+    if (!validateTask(data)) return;
 
-    if (editingTaskId !== null) {
+    const isEditing = editingTaskId !== null;
 
-        // Nếu đang chỉnh sửa thì cập nhật công việc cũ.
-        const taskToUpdate = tasks.find(function (task) {
-            return task.id === editingTaskId;
-        });
+    const url = isEditing
+        ? `${API_URL}/${encodeURIComponent(editingTaskId)}`
+        : API_URL;
 
-        if (!taskToUpdate) {
-            alert("Không tìm thấy công việc cần chỉnh sửa.");
-            closeTaskForm();
-            return;
-        }
+    const method = isEditing ? "PUT" : "POST";
 
-        Object.assign(taskToUpdate, taskData);
+    try {
+        elements.saveButton.disabled = true;
+        elements.saveButton.textContent = "Đang lưu...";
 
-        alert("Đã cập nhật công việc thành công!");
+        // Gửi dữ liệu lên Backend để lưu vào SQLite.
+        await callAPI(url, method, data);
 
-    } else {
+        alert(
+            isEditing
+                ? "Cập nhật công việc thành công!"
+                : "Thêm công việc thành công!"
+        );
 
-        // Nếu không chỉnh sửa thì tạo công việc mới.
-        const newTask = {
-            id: createTaskId(),
-            ...taskData
-        };
+        closeTaskForm();
 
-        tasks.push(newTask);
+        // Tải lại dữ liệu mới nhất từ Database.
+        await loadTasks();
 
-        alert("Đã thêm công việc thành công!");
+    } catch (error) {
+        console.error("Lỗi lưu công việc:", error);
+        alert("Không thể lưu công việc: " + error.message);
+
+    } finally {
+        elements.saveButton.disabled = false;
+        elements.saveButton.innerHTML =
+            '<i data-lucide="plus"></i> Lưu công việc';
+
+        refreshIcons();
     }
-
-    saveTasks();
-    renderTasks();
-    updateStatistics();
-    closeTaskForm();
 }
 
 
-// =====================================================
-// 6. CHỈNH SỬA, XÓA VÀ ĐỔI TRẠNG THÁI
-// =====================================================
-
-
-// Lấy thông tin công việc và đưa lên biểu mẫu chỉnh sửa.
+// 10. CHỈNH SỬA CÔNG VIỆC
 function editTask(taskId) {
-    const task = tasks.find(function (item) {
-        return item.id === taskId;
-    });
+    const task = tasks.find(
+        item => String(item.id) === String(taskId)
+    );
 
-    if (!task) return;
+    if (!task) {
+        alert("Không tìm thấy công việc!");
+        return;
+    }
 
-    editingTaskId = taskId;
+    editingTaskId = task.id;
 
     elements.titleInput.value = task.title || "";
     elements.descriptionInput.value = task.description || "";
-    elements.dateInput.value = task.date || "";
+    elements.dateInput.value = String(task.date || "").slice(0, 10);
     elements.priorityInput.value = task.priority || "medium";
     elements.startTimeInput.value = task.startTime || "";
     elements.endTimeInput.value = task.endTime || "";
     elements.statusInput.value = task.status || "pending";
 
-    if (elements.formHeading) {
-        elements.formHeading.textContent = "Chỉnh sửa công việc";
-    }
+    elements.formHeading.textContent = "Chỉnh sửa công việc";
 
-    if (elements.saveButton) {
-        elements.saveButton.innerHTML =
-            '<i data-lucide="save"></i> Lưu thay đổi';
-    }
+    elements.saveButton.innerHTML =
+        '<i data-lucide="save"></i> Lưu thay đổi';
 
     elements.taskFormContainer.hidden = false;
 
@@ -329,52 +325,83 @@ function editTask(taskId) {
 }
 
 
-// Xóa công việc khỏi danh sách.
-function deleteTask(taskId) {
-    const isConfirmed = confirm(
-        "Bạn có chắc chắn muốn xóa công việc này không?"
-    );
+// 11. XÓA CÔNG VIỆC
+async function deleteTask(taskId) {
+    if (!confirm("Chị có chắc chắn muốn xóa công việc này không?")) {
+        return;
+    }
 
-    if (!isConfirmed) return;
+    try {
+        await callAPI(
+            `${API_URL}/${encodeURIComponent(taskId)}`,
+            "DELETE"
+        );
 
-    tasks = tasks.filter(function (task) {
-        return task.id !== taskId;
-    });
+        alert("Đã xóa công việc thành công!");
 
-    saveTasks();
-    renderTasks();
-    updateStatistics();
+        await loadTasks();
+
+    } catch (error) {
+        alert("Không thể xóa công việc: " + error.message);
+    }
 }
 
 
-// Chuyển đổi giữa trạng thái hoàn thành và chưa hoàn thành.
-function toggleTaskStatus(taskId) {
-    const task = tasks.find(function (item) {
-        return item.id === taskId;
-    });
+// 12. CẬP NHẬT TRẠNG THÁI
+async function toggleTaskStatus(taskId) {
+    const task = tasks.find(
+        item => String(item.id) === String(taskId)
+    );
 
     if (!task) return;
 
-    task.status = task.status === "completed"
+    const newStatus = task.status === "completed"
         ? "pending"
         : "completed";
 
-    saveTasks();
-    renderTasks();
-    updateStatistics();
+    try {
+        await callAPI(
+            `${API_URL}/${encodeURIComponent(taskId)}/status`,
+            "PATCH",
+            { status: newStatus }
+        );
+
+        await loadTasks();
+
+    } catch (error) {
+        alert("Không thể cập nhật trạng thái: " + error.message);
+    }
 }
 
 
-// =====================================================
-// 7. TẠO THẺ CÔNG VIỆC
-// NOTE: Dùng textContent để hiển thị nội dung người dùng
-// nhập, hạn chế lỗi chèn HTML không mong muốn.
-// =====================================================
+// 13. TẠO NÚT THAO TÁC
+function createActionButton(action, iconName, label) {
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.dataset.action = action;
+
+    if (action === "edit") {
+        button.className = "edit-task-btn";
+    } else if (action === "delete") {
+        button.className = "delete-task-btn";
+    } else {
+        button.className = "complete-task-btn";
+    }
+
+    const icon = document.createElement("i");
+    icon.setAttribute("data-lucide", iconName);
+
+    button.append(icon, document.createTextNode(" " + label));
+
+    return button;
+}
 
 
-// Tạo một thẻ công việc.
+// 14. TẠO THẺ CÔNG VIỆC
 function createTaskElement(task) {
     const taskItem = document.createElement("article");
+
     taskItem.className = "task-item";
     taskItem.dataset.taskId = task.id;
 
@@ -404,7 +431,7 @@ function createTaskElement(task) {
 
     const dateInfo = document.createElement("span");
     dateInfo.innerHTML = '<i data-lucide="calendar-days"></i>';
-    dateInfo.append(` ${formatDate(task.date)}`);
+    dateInfo.append(" " + formatDate(task.date));
 
     const timeInfo = document.createElement("span");
     timeInfo.innerHTML = '<i data-lucide="clock-3"></i>';
@@ -413,13 +440,18 @@ function createTaskElement(task) {
         ? `${task.startTime}${task.endTime ? " - " + task.endTime : ""}`
         : "Chưa đặt giờ";
 
-    timeInfo.append(` ${timeText}`);
+    timeInfo.append(" " + timeText);
 
     meta.append(dateInfo, timeInfo);
 
     const status = document.createElement("div");
     status.className =
-        `task-status ${task.status === "completed" ? "is-completed" : "is-pending"}`;
+        `task-status ${
+            task.status === "completed"
+                ? "is-completed"
+                : "is-pending"
+        }`;
+
     status.textContent = getStatusText(task.status);
 
     content.append(heading, description, meta, status);
@@ -427,17 +459,8 @@ function createTaskElement(task) {
     const actions = document.createElement("div");
     actions.className = "task-actions";
 
-    const editButton = createActionButton(
-        "edit",
-        "pencil",
-        "Chỉnh sửa"
-    );
-
-    const deleteButton = createActionButton(
-        "delete",
-        "trash-2",
-        "Xóa"
-    );
+    const editButton = createActionButton("edit", "pencil", "Chỉnh sửa");
+    const deleteButton = createActionButton("delete", "trash-2", "Xóa");
 
     const completeButton = task.status === "completed"
         ? createActionButton("toggle", "rotate-ccw", "Đánh dấu chưa xong")
@@ -451,33 +474,10 @@ function createTaskElement(task) {
 }
 
 
-// Tạo các nút thao tác trên thẻ công việc.
-function createActionButton(action, iconName, label) {
-    const button = document.createElement("button");
-
-    button.type = "button";
-
-    button.className = `
-        ${action === "edit" ? "edit-task-btn" : ""}
-        ${action === "delete" ? "delete-task-btn" : ""}
-        ${action === "toggle" ? "complete-task-btn" : ""}
-    `.trim();
-
-    button.dataset.action = action;
-    button.innerHTML = `<i data-lucide="${iconName}"></i> ${label}`;
-
-    return button;
-}
-
-
-// =====================================================
-// 8. TÌM KIẾM VÀ LỌC CÔNG VIỆC
-// NOTE: Bộ lọc hoạt động trên toàn bộ danh sách tasks.
-// =====================================================
-
-
-// Trả về danh sách công việc phù hợp với điều kiện lọc.
+// 15. LỌC CÔNG VIỆC HÔM NAY
 function getFilteredTasks() {
+    const today = getTodayString();
+
     const keyword = elements.searchInput.value
         .trim()
         .toLocaleLowerCase("vi");
@@ -485,108 +485,94 @@ function getFilteredTasks() {
     const selectedStatus = elements.statusFilter.value;
     const selectedPriority = elements.priorityFilter.value;
 
-    return tasks.filter(function (task) {
+    return tasks.filter(task => {
+        const isToday =
+            String(task.date || "").slice(0, 10) === today;
+
         const title = (task.title || "").toLocaleLowerCase("vi");
-        const description = (task.description || "")
-            .toLocaleLowerCase("vi");
+        const description =
+            (task.description || "").toLocaleLowerCase("vi");
 
         const matchesKeyword =
-            title.includes(keyword) ||
-            description.includes(keyword);
+            title.includes(keyword) || description.includes(keyword);
 
         const matchesStatus =
-            selectedStatus === "all" ||
-            task.status === selectedStatus;
+            selectedStatus === "all" || task.status === selectedStatus;
 
         const matchesPriority =
-            selectedPriority === "all" ||
-            task.priority === selectedPriority;
+            selectedPriority === "all" || task.priority === selectedPriority;
 
-        return matchesKeyword &&
+        return (
+            isToday &&
+            matchesKeyword &&
             matchesStatus &&
-            matchesPriority;
+            matchesPriority
+        );
     });
 }
 
 
-// Hiển thị khi danh sách không có công việc phù hợp.
-function renderEmptyState() {
-    const emptyState = document.createElement("div");
-    emptyState.className = "empty-state";
-
-    const iconWrapper = document.createElement("div");
-    iconWrapper.className = "empty-icon";
-    iconWrapper.innerHTML = '<i data-lucide="clipboard-list"></i>';
-
-    const heading = document.createElement("h3");
-    heading.textContent = "Chưa tìm thấy công việc";
-
-    const message = document.createElement("p");
-    message.textContent = "Hãy thêm công việc mới để bắt đầu nhé!";
-
-    emptyState.append(iconWrapper, heading, message);
-
-    elements.taskList.replaceChildren(emptyState);
-}
-
-
-// Hiển thị danh sách công việc lên giao diện.
+// 16. HIỂN THỊ DANH SÁCH
 function renderTasks() {
+    if (!elements.taskList) return;
+
     const filteredTasks = getFilteredTasks();
 
     elements.taskList.replaceChildren();
 
     if (filteredTasks.length === 0) {
-        renderEmptyState();
-        refreshIcons();
-        return;
+        const emptyState = document.createElement("div");
+        emptyState.className = "empty-state";
+
+        const icon = document.createElement("div");
+        icon.className = "empty-icon";
+        icon.innerHTML = '<i data-lucide="notebook-tabs"></i>';
+
+        const heading = document.createElement("h3");
+        heading.textContent = "Hôm nay chưa có công việc nào";
+
+        const message = document.createElement("p");
+        message.textContent =
+            "Hãy thêm công việc mới để bắt đầu nhé!";
+
+        emptyState.append(icon, heading, message);
+        elements.taskList.appendChild(emptyState);
+
+    } else {
+        const fragment = document.createDocumentFragment();
+
+        filteredTasks.forEach(task => {
+            fragment.appendChild(createTaskElement(task));
+        });
+
+        elements.taskList.appendChild(fragment);
     }
-
-    const fragment = document.createDocumentFragment();
-
-    filteredTasks.forEach(function (task) {
-        fragment.appendChild(createTaskElement(task));
-    });
-
-    elements.taskList.appendChild(fragment);
 
     refreshIcons();
 }
 
 
-// =====================================================
-// 9. CẬP NHẬT THỐNG KÊ
-// NOTE: Thống kê tính trên toàn bộ công việc,
-// không phụ thuộc vào tìm kiếm hay bộ lọc.
-// =====================================================
-
+// 17. CẬP NHẬT THỐNG KÊ HÔM NAY
 function updateStatistics() {
-    const completedCount = tasks.filter(function (task) {
-        return task.status === "completed";
-    }).length;
+    const today = getTodayString();
 
-    const pendingCount = tasks.length - completedCount;
+    const todayTasks = tasks.filter(task =>
+        String(task.date || "").slice(0, 10) === today
+    );
 
-    if (elements.totalTasks) {
-        elements.totalTasks.textContent = tasks.length;
-    }
+    const completedCount = todayTasks.filter(
+        task => task.status === "completed"
+    ).length;
 
-    if (elements.completedTasks) {
-        elements.completedTasks.textContent = completedCount;
-    }
+    const pendingCount = todayTasks.length - completedCount;
 
-    if (elements.pendingTasks) {
-        elements.pendingTasks.textContent = pendingCount;
-    }
+    elements.totalTasks.textContent = todayTasks.length;
+    elements.completedTasks.textContent = completedCount;
+    elements.pendingTasks.textContent = pendingCount;
 }
 
 
-// =====================================================
-// 10. GẮN SỰ KIỆN
-// NOTE: Event Delegation giúp quản lý các nút trong danh sách
-// mà không cần gắn sự kiện riêng cho từng thẻ công việc.
-// =====================================================
-
+// 18. GẮN SỰ KIỆN
 if (elements.addTaskBtn) {
     elements.addTaskBtn.addEventListener("click", openTaskForm);
 }
@@ -616,9 +602,16 @@ if (elements.priorityFilter) {
 }
 
 
-// Bắt sự kiện nhấn nút bên trong danh sách công việc.
+// 19. XỬ LÝ NÚT TRONG DANH SÁCH
 if (elements.taskList) {
-    elements.taskList.addEventListener("click", function (event) {
+    elements.taskList.addEventListener("click", event => {
+        const retryButton = event.target.closest("#retry-load-btn");
+
+        if (retryButton) {
+            loadTasks();
+            return;
+        }
+
         const button = event.target.closest("button[data-action]");
 
         if (!button) return;
@@ -632,10 +625,8 @@ if (elements.taskList) {
 
         if (action === "edit") {
             editTask(taskId);
-
         } else if (action === "delete") {
             deleteTask(taskId);
-
         } else if (action === "toggle") {
             toggleTaskStatus(taskId);
         }
@@ -643,11 +634,6 @@ if (elements.taskList) {
 }
 
 
-// =====================================================
-// 11. KHỞI CHẠY ỨNG DỤNG
-// NOTE: Các hàm này chạy khi JavaScript được tải.
-// =====================================================
-
+// 20. KHỞI CHẠY
 updateCurrentDate();
-renderTasks();
-updateStatistics();
+loadTasks();

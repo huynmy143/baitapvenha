@@ -50,11 +50,15 @@ app.get("/api", (req, res) => {
 app.use("/api/tasks", taskRoutes);
 
 // Xử lý đường dẫn API không tồn tại
-app.use("/api/*path", (req, res) => {
-    res.status(404).json({
-        success: false,
-        message: "Không tìm thấy API yêu cầu."
-    });
+app.use((req, res, next) => {
+    if (req.path.startsWith("/api/")) {
+        return res.status(404).json({
+            success: false,
+            message: "Không tìm thấy API yêu cầu."
+        });
+    }
+
+    next();
 });
 
 // Xử lý lỗi chung
