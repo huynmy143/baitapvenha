@@ -1,0 +1,949 @@
+
+/* =================================
+   1. GLOBAL SETTINGS
+================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #6FA8DC;
+    --primary-dark: #528FC8;
+    --blue-light: #EAF4FF;
+    --blue-soft: #D6E9FA;
+    --white: #FFFFFF;
+
+    --text-dark: #34495E;
+    --text-medium: #71869A;
+    --text-light: #A0B4C8;
+
+    --border: #E4EEF7;
+    --background: #F5F9FE;
+
+    --green: #72C5A1;
+    --orange: #EAB477;
+}
+
+body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: var(--background);
+    color: var(--text-dark);
+    min-height: 100vh;
+}
+
+
+/* =================================
+   2. MAIN LAYOUT
+================================= */
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* =================================
+   3. SIDEBAR
+================================= */
+
+.sidebar {
+    width: 255px;
+    min-width: 255px;
+    background: var(--white);
+
+    padding: 32px 22px;
+
+    display: flex;
+    flex-direction: column;
+
+    border-right: 1px solid var(--border);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 60px;
+
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+.logo-icon {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--blue-light);
+    color: var(--primary);
+
+    border-radius: 14px;
+}
+
+.logo-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+}
+
+.menu-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    color: var(--text-light);
+
+    margin-bottom: 16px;
+    padding-left: 12px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 14px 13px;
+
+    border-radius: 12px;
+
+    color: var(--text-medium);
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    transition: all 0.25s ease;
+}
+
+.menu-item svg {
+    width: 19px;
+    height: 19px;
+    stroke-width: 1.8;
+}
+
+.menu-item:hover {
+    background: #F2F7FC;
+    color: var(--primary);
+}
+
+.menu-item.active {
+    background: var(--blue-light);
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+
+/* SIDEBAR NOTE */
+
+.sidebar-note {
+    margin-top: auto;
+
+    padding: 20px 17px;
+
+    background: linear-gradient(
+        145deg,
+        #EAF4FF,
+        #F5FAFF
+    );
+
+    border: 1px solid #E0EDF9;
+    border-radius: 16px;
+}
+
+.note-icon {
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+    color: var(--primary);
+
+    border-radius: 10px;
+    margin-bottom: 14px;
+}
+
+.note-icon svg {
+    width: 19px;
+}
+
+.sidebar-note h4 {
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.sidebar-note p {
+    color: var(--text-medium);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.sidebar-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 25px;
+
+    font-size: 10px;
+    color: var(--text-light);
+}
+
+.sidebar-footer svg {
+    width: 15px;
+    color: var(--primary);
+}
+
+
+/* =================================
+   4. MAIN CONTENT
+================================= */
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+
+    max-width: 1600px;
+    padding: 42px 48px;
+}
+
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 35px;
+}
+
+.welcome-text {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+
+    color: var(--primary);
+
+    margin-bottom: 10px;
+}
+
+.top-header h1 {
+    font-size: 29px;
+    font-weight: 700;
+}
+
+.sub-heading {
+    font-size: 13px;
+    color: var(--text-medium);
+
+    margin-top: 9px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.date-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: white;
+    padding: 13px 17px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    color: var(--text-medium);
+    font-size: 12px;
+}
+
+.date-display svg {
+    width: 18px;
+    color: var(--primary);
+}
+
+.avatar {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--blue-soft);
+    color: var(--primary-dark);
+
+    border-radius: 50%;
+}
+
+.avatar svg {
+    width: 21px;
+}
+
+
+/* =================================
+   5. SUMMARY CARDS
+================================= */
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+
+    margin-bottom: 35px;
+}
+
+.summary-card {
+    background: white;
+
+    padding: 23px 25px;
+
+    border: 1px solid var(--border);
+    border-radius: 17px;
+
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(100, 150, 200, 0.08);
+}
+
+.card-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.card-icon {
+    width: 39px;
+    height: 39px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+}
+
+.card-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.card-icon.blue {
+    background: #EAF4FF;
+    color: #6FA8DC;
+}
+
+.card-icon.green {
+    background: #E8F7F0;
+    color: #72C5A1;
+}
+
+.card-icon.orange {
+    background: #FFF3E7;
+    color: #EAB477;
+}
+
+.card-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+
+    color: var(--text-light);
+}
+
+.summary-card h2 {
+    font-size: 32px;
+    margin: 18px 0 7px;
+
+    color: var(--text-dark);
+}
+
+.summary-card p {
+    font-size: 11px;
+    color: var(--text-medium);
+}
+
+
+/* =================================
+   6. TASK SECTION
+================================= */
+
+.task-section {
+    background: white;
+
+    padding: 30px;
+
+    border: 1px solid var(--border);
+    border-radius: 19px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 26px;
+}
+
+.section-heading h2 {
+    font-size: 20px;
+}
+
+.section-heading p {
+    font-size: 12px;
+    color: var(--text-medium);
+
+    margin-top: 7px;
+}
+
+
+/* ADD BUTTON */
+
+.add-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    padding: 12px 19px;
+
+    background: var(--primary);
+    color: white;
+
+    border: none;
+    border-radius: 11px;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.add-button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.add-button svg {
+    width: 17px;
+    height: 17px;
+}
+
+
+/* =================================
+   7. SEARCH AND FILTER
+================================= */
+
+.filter-bar {
+    display: flex;
+    gap: 12px;
+
+    margin-bottom: 25px;
+}
+
+.search-box,
+.filter-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    height: 46px;
+
+    padding: 0 14px;
+
+    border: 1px solid var(--border);
+    border-radius: 11px;
+
+    background: white;
+}
+
+.search-box {
+    flex: 1;
+}
+
+.search-box svg,
+.filter-box svg {
+    width: 17px;
+    height: 17px;
+
+    color: #91AEC9;
+    flex-shrink: 0;
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+
+    font-family: inherit;
+    font-size: 12px;
+
+    color: var(--text-dark);
+}
+
+.search-box input::placeholder {
+    color: #AAB9C8;
+}
+
+.filter-box select {
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: var(--text-medium);
+    font-family: inherit;
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+
+/* FOCUS EFFECT */
+
+.search-box:focus-within,
+.filter-box:focus-within {
+    border-color: var(--primary);
+}
+
+
+/* =================================
+   8. TASK LIST
+================================= */
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 55px 20px;
+}
+
+.empty-icon {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--blue-light);
+    color: var(--primary);
+
+    border-radius: 20px;
+
+    margin: 0 auto 18px;
+}
+
+.empty-icon svg {
+    width: 30px;
+    height: 30px;
+}
+
+.empty-state h3 {
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+
+/* =================================
+   9. FOOTER
+================================= */
+
+.main-footer {
+    text-align: center;
+    margin-top: 30px;
+
+    color: var(--text-light);
+    font-size: 10px;
+}
+
+
+/* =================================
+   10. RESPONSIVE DESIGN
+================================= */
+
+@media (max-width: 1024px) {
+
+    .sidebar {
+        width: 220px;
+        min-width: 220px;
+    }
+
+    .main-content {
+        padding: 30px;
+    }
+
+    .summary-cards {
+        gap: 12px;
+    }
+
+    .summary-card {
+        padding: 18px;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        padding: 22px 16px;
+    }
+
+    .top-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .task-section {
+        padding: 20px 15px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .filter-bar {
+        flex-direction: column;
+    }
+
+    .search-box,
+    .filter-box {
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 400px) {
+
+    .top-header h1 {
+        font-size: 24px;
+    }
+
+    .date-display {
+        font-size: 10px;
+        padding: 11px;
+    }
+
+}
+
+/* Nhóm nút thao tác công việc */
+.task-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.edit-task-btn,
+.delete-task-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.edit-task-btn {
+    background: var(--blue-light);
+    color: var(--primary-dark);
+}
+
+.delete-task-btn {
+    background: #FFF0F0;
+    color: #D96B6B;
+}
+
+.edit-task-btn:hover {
+    background: var(--blue-soft);
+}
+
+.delete-task-btn:hover {
+    background: #FFE1E1;
+}
+
+.edit-task-btn svg,
+.delete-task-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+@media (max-width: 600px) {
+    .task-actions {
+        width: 100%;
+    }
+}
+
+/* =================================
+   GIAO DIỆN THẺ CÔNG VIỆC
+================================= */
+
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    padding: 20px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.task-item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.task-item-heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.task-title {
+    color: var(--text-dark);
+    font-size: 16px;
+}
+
+.task-description {
+    color: var(--text-medium);
+    font-size: 13px;
+    margin-bottom: 12px;
+    overflow-wrap: anywhere;
+}
+
+.task-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    color: var(--text-medium);
+    font-size: 12px;
+}
+
+.task-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.task-meta svg {
+    width: 15px;
+    height: 15px;
+}
+
+.priority-label {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.priority-high {
+    background: #FDE8E8;
+    color: #D96B6B;
+}
+
+.priority-medium {
+    background: #FFF2DD;
+    color: #C58B38;
+}
+
+.priority-low {
+    background: #E5F6ED;
+    color: #4C9D79;
+}
+
+.task-status {
+    margin-top: 10px;
+    color: var(--text-medium);
+    font-size: 12px;
+}
+
+.complete-task-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--blue-light);
+    color: var(--primary-dark);
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* =================================
+   GIAO DIỆN BIỂU MẪU
+================================= */
+
+.task-form-container {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.task-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.task-form-header h2 {
+    font-size: 20px;
+}
+
+.close-btn {
+    border: none;
+    background: var(--blue-light);
+    color: var(--text-medium);
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+    flex: 1;
+}
+
+.form-group label {
+    color: var(--text-dark);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--background);
+    color: var(--text-dark);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--primary);
+}
+
+.form-row {
+    display: flex;
+    gap: 16px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.cancel-btn,
+.save-btn {
+    padding: 11px 18px;
+    border-radius: 9px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: var(--white);
+    color: var(--text-medium);
+    border: 1px solid var(--border);
+}
+
+.save-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary);
+    color: white;
+    border: none;
+}
+
+@media (max-width: 600px) {
+    .task-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .task-actions {
+        width: 100%;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .task-form-container {
+        padding: 16px;
+    }
+}

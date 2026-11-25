@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MyDay - Quản lý công việc cá nhân</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- THANH ĐIỀU HƯỚNG -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">
+                <i data-lucide="calendar-check"></i>
+            </div>
+            <span>MyDay</span>
+        </div>
+
+        <div class="menu-group">
+            <p class="menu-label">KHÔNG GIAN LÀM VIỆC</p>
+
+            <nav class="menu">
+
+                <a href="#" class="menu-item active">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Công việc hôm nay</span>
+                </a>
+
+                <a href="#" class="menu-item">
+                    <i data-lucide="list-todo"></i>
+                    <span>Tất cả công việc</span>
+                </a>
+
+                <a href="#" class="menu-item">
+                    <i data-lucide="chart-no-axes-combined"></i>
+                    <span>Thống kê</span>
+                </a>
+
+            </nav>
+        </div>
+
+        <div class="sidebar-note">
+
+            <div class="note-icon">
+                <i data-lucide="lightbulb"></i>
+            </div>
+
+            <h4>Hãy luôn tích cực!</h4>
+
+            <p>
+                Mỗi bước tiến nhỏ hôm nay
+                sẽ tạo nên thành công ngày mai.
+            </p>
+
+        </div>
+
+        <div class="sidebar-footer">
+            <i data-lucide="heart"></i>
+            <span>Cùng bạn mỗi ngày tốt hơn</span>
+        </div>
+
+    </aside>
+
+
+    <!-- NỘI DUNG CHÍNH -->
+    <main class="main-content">
+
+        <!-- PHẦN ĐẦU TRANG -->
+        <header class="top-header">
+
+            <div class="header-text">
+
+                <p class="welcome-text">CHÀO MỪNG BẠN QUAY TRỞ LẠI!</p>
+
+                <h1>Công việc hôm nay</h1>
+
+                <p class="sub-heading">
+                    Sắp xếp công việc, chinh phục mục tiêu mỗi ngày.
+                </p>
+
+            </div>
+
+            <div class="header-right">
+
+                <div class="date-display">
+                    <i data-lucide="calendar-days"></i>
+                    <span id="current-date">Ngày hôm nay</span>
+                </div>
+
+                <div class="avatar">
+                    <i data-lucide="user-round"></i>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- THẺ THỐNG KÊ -->
+        <section class="summary-cards">
+
+            <div class="summary-card">
+
+                <div class="card-top">
+
+                    <div class="card-icon blue">
+                        <i data-lucide="clipboard-list"></i>
+                    </div>
+
+                    <span class="card-label">TỔNG CÔNG VIỆC</span>
+
+                </div>
+
+                <h2 id="total-tasks">0</h2>
+
+                <p>Tổng số công việc hôm nay</p>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="card-top">
+
+                    <div class="card-icon green">
+                        <i data-lucide="check-circle-2"></i>
+                    </div>
+
+                    <span class="card-label">ĐÃ HOÀN THÀNH</span>
+
+                </div>
+
+                <h2 id="completed-tasks">0</h2>
+
+                <p>Công việc đã hoàn thành</p>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="card-top">
+
+                    <div class="card-icon orange">
+                        <i data-lucide="clock-3"></i>
+                    </div>
+
+                    <span class="card-label">CHƯA HOÀN THÀNH</span>
+
+                </div>
+
+                <h2 id="pending-tasks">0</h2>
+
+                <p>Công việc đang chờ xử lý</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUẢN LÝ CÔNG VIỆC -->
+        <section class="task-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Danh sách công việc</h2>
+
+                    <p>
+                        Theo dõi và quản lý các hoạt động hằng ngày.
+                    </p>
+                </div>
+
+                <button class="add-button" id="add-task-btn">
+
+                    <i data-lucide="plus"></i>
+
+                    <span>Thêm công việc</span>
+
+                </button>
+
+            </div>
+
+
+            <!-- TÌM KIẾM VÀ LỌC -->
+            <div class="filter-bar">
+
+                <div class="search-box">
+
+                    <i data-lucide="search"></i>
+
+                    <input
+                        type="text"
+                        id="search-input"
+                        placeholder="Tìm kiếm công việc..."
+                    >
+
+                </div>
+
+
+                <div class="filter-box">
+
+                    <i data-lucide="list-filter"></i>
+
+                    <select id="status-filter">
+
+                        <option value="all">Tất cả trạng thái</option>
+
+                        <option value="pending">Chưa hoàn thành</option>
+
+                        <option value="completed">Đã hoàn thành</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-box">
+
+                    <i data-lucide="flag"></i>
+
+                    <select id="priority-filter">
+
+                        <option value="all">Tất cả mức độ</option>
+
+                        <option value="high">Ưu tiên cao</option>
+
+                        <option value="medium">Ưu tiên trung bình</option>
+
+                        <option value="low">Ưu tiên thấp</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- DANH SÁCH CÔNG VIỆC -->
+             <!-- Biểu mẫu thêm công việc -->
+<div class="task-form-container" id="task-form-container" hidden>
+    <div class="task-form-header">
+        <h2>Thêm công việc mới</h2>
+        <button type="button" id="close-task-form" class="close-btn">
+            <i data-lucide="x"></i>
+        </button>
+    </div>
+
+    <form id="task-form">
+        <div class="form-group">
+            <label for="task-title">Tên công việc</label>
+            <input
+                type="text"
+                id="task-title"
+                placeholder="Ví dụ: Hoàn thành bài tập JavaScript"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="task-description">Mô tả</label>
+            <textarea
+                id="task-description"
+                placeholder="Nhập mô tả công việc..."
+                rows="3"
+            ></textarea>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="task-date">Ngày thực hiện</label>
+                <input type="date" id="task-date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="task-priority">Mức độ ưu tiên</label>
+                <select id="task-priority">
+                    <option value="low">Thấp</option>
+                    <option value="medium" selected>Trung bình</option>
+                    <option value="high">Cao</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="task-start-time">Giờ bắt đầu</label>
+                <input type="time" id="task-start-time">
+            </div>
+
+            <div class="form-group">
+                <label for="task-end-time">Giờ kết thúc</label>
+                <input type="time" id="task-end-time">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="task-status">Trạng thái</label>
+            <select id="task-status">
+                <option value="pending">Chưa hoàn thành</option>
+                <option value="completed">Đã hoàn thành</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="button" id="cancel-task-btn" class="cancel-btn">
+                Hủy
+            </button>
+
+            <button type="submit" class="save-btn">
+                <i data-lucide="plus"></i>
+                Lưu công việc
+            </button>
+        </div>
+    </form>
+</div>
+            <div class="task-list" id="task-list">
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        <i data-lucide="notebook-tabs"></i>
+                    </div>
+
+                    <h3>Chưa có công việc nào</h3>
+
+                    <p>
+                        Hãy thêm công việc đầu tiên để bắt đầu ngày mới nhé!
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CHÂN TRANG -->
+        <footer class="main-footer">
+
+            <p>© 2026 MyDay. Mỗi ngày một bước tiến mới.</p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+<script src="script.js"></script>
+
+<script>
+    lucide.createIcons();
+</script>
+
+</body>
+</html>
