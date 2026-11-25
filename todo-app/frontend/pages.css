@@ -1,0 +1,388 @@
+
+/* ==========================================
+   MYDAY - ALL TASKS & STATISTICS
+   File: frontend/pages.css
+   Giao diện xanh pastel - trắng
+   ========================================== */
+
+:root {
+    --page-blue: #78aee8;
+    --page-blue-dark: #4d8ed5;
+    --page-blue-light: #eaf4ff;
+    --page-bg: #f5f9ff;
+    --page-white: #ffffff;
+    --page-text: #30445d;
+    --page-muted: #8292a7;
+    --page-border: #e5edf7;
+    --page-green: #61bd9a;
+    --page-orange: #efa968;
+    --page-red: #e88b91;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Be Vietnam Pro", sans-serif;
+    background: var(--page-bg);
+    color: var(--page-text);
+}
+
+.myday-page {
+    min-height: 100vh;
+}
+
+.page-header {
+    background: var(--page-white);
+    border-bottom: 1px solid var(--page-border);
+    padding: 16px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.page-brand {
+    font-size: 23px;
+    font-weight: 800;
+    color: var(--page-blue-dark);
+    text-decoration: none;
+}
+
+.page-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.page-nav a {
+    text-decoration: none;
+    color: var(--page-muted);
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.page-nav a:hover,
+.page-nav a.active {
+    background: var(--page-blue-light);
+    color: var(--page-blue-dark);
+}
+
+.page-container {
+    width: min(1100px, 92%);
+    margin: 35px auto;
+}
+
+.page-heading {
+    margin-bottom: 25px;
+}
+
+.page-heading h1 {
+    font-size: 28px;
+    margin: 0 0 8px;
+}
+
+.page-heading p {
+    color: var(--page-muted);
+    margin: 0;
+    font-size: 14px;
+}
+
+.page-card {
+    background: var(--page-white);
+    border: 1px solid var(--page-border);
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 5px 20px rgba(74, 123, 180, 0.05);
+}
+
+.page-toolbar {
+    display: grid;
+    grid-template-columns: 1fr 190px 190px;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.page-input,
+.page-select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--page-border);
+    border-radius: 11px;
+    background: #fff;
+    color: var(--page-text);
+    font-family: inherit;
+    outline: none;
+}
+
+.page-input:focus,
+.page-select:focus {
+    border-color: var(--page-blue);
+    box-shadow: 0 0 0 3px rgba(120, 174, 232, 0.12);
+}
+
+.page-task-list {
+    display: grid;
+    gap: 12px;
+}
+
+.page-task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 17px;
+    border: 1px solid var(--page-border);
+    border-radius: 14px;
+    background: #fff;
+}
+
+.page-task-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    min-width: 0;
+}
+
+.page-task-info {
+    min-width: 0;
+}
+
+.page-task-info h3 {
+    margin: 0 0 7px;
+    font-size: 15px;
+    overflow-wrap: anywhere;
+}
+
+.page-task-info p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--page-muted);
+    line-height: 1.7;
+}
+
+.page-task.completed h3 {
+    text-decoration: line-through;
+    color: var(--page-muted);
+}
+
+.page-task-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.page-action-btn {
+    border: 0;
+    border-radius: 9px;
+    padding: 9px 11px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.page-complete-btn {
+    background: #e8f7f0;
+    color: #399a73;
+}
+
+.page-delete-btn {
+    background: #fff0f0;
+    color: #d46c75;
+}
+
+.page-priority,
+.page-status {
+    display: inline-block;
+    border-radius: 20px;
+    padding: 4px 9px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+.priority-high {
+    background: #fff0ee;
+    color: #d97570;
+}
+
+.priority-medium {
+    background: #fff5e8;
+    color: #c88b43;
+}
+
+.priority-low {
+    background: #eaf4ff;
+    color: #5c91ce;
+}
+
+.status-pending {
+    background: #fff5e8;
+    color: #c88b43;
+}
+
+.status-completed {
+    background: #e8f7f0;
+    color: #399a73;
+}
+
+.page-empty {
+    text-align: center;
+    padding: 45px 15px;
+    color: var(--page-muted);
+    font-size: 14px;
+}
+
+.page-message {
+    padding: 14px;
+    background: #fff0f0;
+    color: #c45d68;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+
+/* ==========================================
+   THỐNG KÊ
+   ========================================== */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.stats-card {
+    background: #fff;
+    border: 1px solid var(--page-border);
+    border-radius: 17px;
+    padding: 20px;
+}
+
+.stats-card p {
+    color: var(--page-muted);
+    font-size: 13px;
+    margin: 0 0 13px;
+}
+
+.stats-card h2 {
+    font-size: 29px;
+    margin: 0;
+    color: var(--page-blue-dark);
+}
+
+.stats-card small {
+    display: block;
+    color: var(--page-muted);
+    margin-top: 8px;
+    font-size: 11px;
+}
+
+.stats-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.stats-section h2 {
+    font-size: 17px;
+    margin: 0 0 22px;
+}
+
+.progress-item {
+    margin-bottom: 20px;
+}
+
+.progress-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 13px;
+    margin-bottom: 9px;
+}
+
+.progress-track {
+    height: 11px;
+    background: #edf3fa;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0;
+    border-radius: 20px;
+    background: var(--page-blue);
+    transition: width 0.3s;
+}
+
+.progress-fill.green {
+    background: var(--page-green);
+}
+
+.progress-fill.orange {
+    background: var(--page-orange);
+}
+
+.progress-fill.red {
+    background: var(--page-red);
+}
+
+.stats-note {
+    color: var(--page-muted);
+    font-size: 12px;
+    margin-top: 18px;
+    line-height: 1.7;
+}
+
+@media (max-width: 760px) {
+    .page-toolbar {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .page-task {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .page-task-actions {
+        width: 100%;
+    }
+}
+
+@media (max-width: 420px) {
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+    }
+
+    .stats-card {
+        padding: 14px;
+    }
+
+    .stats-card h2 {
+        font-size: 23px;
+    }
+
+    .page-heading h1 {
+        font-size: 23px;
+    }
+}

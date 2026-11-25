@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tất cả công việc | MyDay</title>
+
+    <!-- Font chữ Be Vietnam Pro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- CSS dùng chung cho các trang phụ -->
+    <link rel="stylesheet" href="pages.css">
+</head>
+
+<body class="myday-page">
+
+    <!-- HEADER VÀ THANH ĐIỀU HƯỚNG -->
+    <header class="page-header">
+
+        <a href="index.html" class="page-brand">
+            MyDay
+        </a>
+
+        <nav class="page-nav">
+            <a href="index.html">Hôm nay</a>
+            <a href="all-tasks.html" class="active">Tất cả công việc</a>
+            <a href="statistics.html">Thống kê</a>
+        </nav>
+
+    </header>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <main class="page-container">
+
+        <section class="page-heading">
+            <h1>Tất cả công việc</h1>
+            <p>Quản lý và theo dõi toàn bộ công việc của bạn.</p>
+        </section>
+
+        <!-- THÔNG BÁO LỖI -->
+        <div id="page-message" class="page-message" hidden></div>
+
+        <!-- DANH SÁCH CÔNG VIỆC -->
+        <section class="page-card">
+
+            <!-- TÌM KIẾM VÀ LỌC -->
+            <div class="page-toolbar">
+
+                <input
+                    type="search"
+                    id="task-search"
+                    class="page-input"
+                    placeholder="Tìm kiếm công việc..."
+                >
+
+                <select id="task-status-filter" class="page-select">
+                    <option value="all">Tất cả trạng thái</option>
+                    <option value="pending">Chưa hoàn thành</option>
+                    <option value="completed">Đã hoàn thành</option>
+                </select>
+
+                <select id="task-priority-filter" class="page-select">
+                    <option value="all">Tất cả mức ưu tiên</option>
+                    <option value="high">Cao</option>
+                    <option value="medium">Trung bình</option>
+                    <option value="low">Thấp</option>
+                </select>
+
+            </div>
+
+            <!-- SỐ LƯỢNG CÔNG VIỆC -->
+            <p id="task-count" style="font-size:13px;color:#8292a7;margin-bottom:18px;">
+                Đang tải công việc...
+            </p>
+
+            <!-- DANH SÁCH SẼ ĐƯỢC JAVASCRIPT HIỂN THỊ -->
+            <div id="all-task-list" class="page-task-list"></div>
+
+        </section>
+
+    </main>
+
+    <!-- JAVASCRIPT -->
+    <script src="all-tasks.js" defer></script>
+
+</body>
+</html>

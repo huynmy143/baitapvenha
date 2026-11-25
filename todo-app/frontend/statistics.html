@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Thống kê hoạt động | MyDay</title>
+
+    <!-- Font chữ Be Vietnam Pro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="pages.css">
+</head>
+
+<body class="myday-page">
+
+    <!-- HEADER -->
+    <header class="page-header">
+
+        <a href="index.html" class="page-brand">MyDay</a>
+
+        <nav class="page-nav">
+            <a href="index.html">Hôm nay</a>
+            <a href="all-tasks.html">Tất cả công việc</a>
+            <a href="statistics.html" class="active">Thống kê</a>
+        </nav>
+
+    </header>
+
+    <!-- NỘI DUNG -->
+    <main class="page-container">
+
+        <section class="page-heading">
+            <h1>Thống kê hoạt động</h1>
+            <p>Theo dõi tiến độ và hiệu suất quản lý công việc của bạn.</p>
+        </section>
+
+        <!-- THẺ TỔNG QUAN -->
+        <section class="stats-grid">
+
+            <article class="stats-card">
+                <p>Tổng công việc</p>
+                <h2 id="stat-total">0</h2>
+                <small>Tất cả công việc</small>
+            </article>
+
+            <article class="stats-card">
+                <p>Đã hoàn thành</p>
+                <h2 id="stat-completed">0</h2>
+                <small>Công việc đã hoàn tất</small>
+            </article>
+
+            <article class="stats-card">
+                <p>Chưa hoàn thành</p>
+                <h2 id="stat-pending">0</h2>
+                <small>Công việc cần thực hiện</small>
+            </article>
+
+            <article class="stats-card">
+                <p>Tỷ lệ hoàn thành</p>
+                <h2 id="stat-rate">0%</h2>
+                <small>Tiến độ tổng thể</small>
+            </article>
+
+        </section>
+
+        <!-- THỐNG KÊ CHI TIẾT -->
+        <section class="stats-layout">
+
+            <!-- TIẾN ĐỘ HOÀN THÀNH -->
+            <article class="page-card stats-section">
+
+                <h2>Tiến độ công việc</h2>
+
+                <div class="progress-item">
+                    <div class="progress-heading">
+                        <span>Đã hoàn thành</span>
+                        <strong id="completed-percent">0%</strong>
+                    </div>
+
+                    <div class="progress-track">
+                        <div
+                            class="progress-fill green"
+                            id="completed-bar"
+                        ></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-heading">
+                        <span>Chưa hoàn thành</span>
+                        <strong id="pending-percent">0%</strong>
+                    </div>
+
+                    <div class="progress-track">
+                        <div
+                            class="progress-fill orange"
+                            id="pending-bar"
+                        ></div>
+                    </div>
+                </div>
+
+                <p class="stats-note" id="progress-note">
+                    Dữ liệu sẽ được cập nhật khi bạn thêm công việc.
+                </p>
+
+            </article>
+
+            <!-- PHÂN LOẠI MỨC ĐỘ ƯU TIÊN -->
+            <article class="page-card stats-section">
+
+                <h2>Phân loại theo mức ưu tiên</h2>
+
+                <div class="progress-item">
+                    <div class="progress-heading">
+                        <span>Ưu tiên cao</span>
+                        <strong id="high-count">0</strong>
+                    </div>
+
+                    <div class="progress-track">
+                        <div
+                            class="progress-fill red"
+                            id="high-bar"
+                        ></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-heading">
+                        <span>Ưu tiên trung bình</span>
+                        <strong id="medium-count">0</strong>
+                    </div>
+
+                    <div class="progress-track">
+                        <div
+                            class="progress-fill orange"
+                            id="medium-bar"
+                        ></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-heading">
+                        <span>Ưu tiên thấp</span>
+                        <strong id="low-count">0</strong>
+                    </div>
+
+                    <div class="progress-track">
+                        <div
+                            class="progress-fill"
+                            id="low-bar"
+                        ></div>
+                    </div>
+                </div>
+
+                <p class="stats-note">
+                    Số liệu được phân loại dựa trên mức độ ưu tiên
+                    của các công việc trong hệ thống.
+                </p>
+
+            </article>
+
+        </section>
+
+        <p id="stats-error" class="page-message" hidden></p>
+
+    </main>
+
+    <!-- JAVASCRIPT -->
+    <script src="statistics.js" defer></script>
+
+</body>
+</html>
